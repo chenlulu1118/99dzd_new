@@ -1,0 +1,35 @@
+<!doctype html>
+<title>久久对账单 - {% block title %}{% endblock %}</title>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="这是一个 index 页面">
+<meta name="keywords" content="index">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/amazeui.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/amazeui.datetimepicker.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+
+<script src="{{ url_for('static', filename='js/echarts.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="{{ url_for('static', filename='js/amazeui.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/amazeui.datetimepicker.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% block header %}{% endblock %}
+
+<style>
+input::-webkit-input-placeholder {color: #ccc;}
+input {border: 1px solid #ddd;}
+</style>
+
+<section class="content">
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}注册{% endblock %}
+{% block content %}
+<body>
+    <div class="am-g">
+	    <div class="myapp-login-logo-block  tpl-login-max">
+		    <div class="myapp-login-logo-text">久久对账单</div>
+
+			<div class="login-font" style="color: Coral">注册</div>
+				
+		    <div class="am-u-sm-10 login-am-center">
+			    <form action="" class="am-form" id="doc-vld-msg" method="POST">
+				    <fieldset>
+					    <div class="am-form-group">
+							<label for="doc-vld-account">账号</label>
+							<input type="text" name="account_id" id="doc-vld-account" placeholder="请输入账号" data-validation-message="请输入账号" class="am-form-field" required/>
+						</div>
+												
+					    <div class="am-form-group">
+							<label for="doc-vld-password">密码</label>
+							<input type="password" name="password" id="doc-vld-password" minlength="6" placeholder="请输入密码（至少6位字符）" data-validation-message="至少6位字符" class="am-form-field" required/>
+                        </div>
+                        
+                        <div class="am-form-group">
+							<label for="doc-vld-password-1">确认密码</label>
+							<input type="password" id="doc-vld-password-1" placeholder="确认密码" data-validation-message="两次输入不一致" class="am-form-field" data-equal-to="#doc-vld-password" required/>
+						</div>
+													
+						<button type="submit" class="am-btn am-btn-warning" style="margin-top: 10px;">注册</button>							
+                    </fieldset>
+			    </form>
+		    </div>
+	    </div>
+	</div>
+</body>
+{% endblock %}

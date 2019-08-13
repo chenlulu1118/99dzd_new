@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}转发账单{% endblock %}
+{% block header %}
+<script src="{{ url_for('static', filename='js/share.js') }}"></script>
+{% endblock %}
+{% block content %}
+<body>
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <h1>久久对账单 <small><small> 让对账更简单</small></small></h1>
+        </div>
+    </header>
+
+    <div class="tpl-page-container tpl-page-header-fixed">
+        <div class="tpl-portlet-components" style="border: 0px;">
+            <div style="color:red; margin-bottom: 15px;">此账单有效期至：{{ deadline }}</div>
+            <div>
+                <span style="float: left; margin-right: 5px;">
+                    <p>合计: </p>
+                </span>
+
+                <span style="float: left; margin-right: 20px;">
+                    <p id="sum" class="am-text-success am-text-lg">{{ sum }}</p>
+                </span>
+            </div>
+
+            <div>
+                <table class="am-table am-table-centered am-table-compact table-main">
+                    <tbody>
+                        {% for statement in statements %}
+                            {% if statement['account_type'] == 'send' %}
+                                <tr id="statement-tr" class="am-success">
+                                    <td class="am-text-middle">
+                                        <p style="color:#485a6a; line-height: 15px; margin: 0;">{{ statement['date_time'][5:10] }}<br/>
+                                        <small style="color:#a7bdcd;">{{ statement['date_time'][0:4] }}</small></p>
+                                    </td>
+                                    <td class="am-text-middle">
+                                        <h2 class="am-text-left" style="color:#485a6a; line-height: 20px; margin: 0;">{{ statement['product_id'] }}<br/>
+                                        <small style="color:#5eb95e;">{{ statement['quantity'] }}×</small>
+                                        <small style="color:#a7bdcd;"> {{ statement['price'] }}</small></h2>
+                                    </td>
+                                    <td class="am-text-middle"><h2 style="margin: 0;">{{ statement['total'] }}</h2></td>
+                                </tr>
+                            {% endif %}
+
+                            {% if statement['account_type'] == 'back' %}
+                                <tr id="statement-tr" class="am-danger">
+                                    <td class="am-text-middle">
+                                        <p style="color:#485a6a; line-height: 15px; margin: 0;">{{ statement['date_time'][5:10] }}<br/>
+                                        <small style="color:#a7bdcd;">{{ statement['date_time'][0:4] }}</small></p>
+                                    </td>
+                                    <td class="am-text-middle">
+                                        <h2 class="am-text-left" style="color:#485a6a; line-height: 20px; margin: 0;">{{ statement['product_id'] }}<br/>
+                                        <small style="color:#dd514c;">-{{ statement['quantity'] }}×</small>
+                                        <small style="color:#a7bdcd;"> {{ statement['price'] }}</small></h2>
+                                    </td>
+                                    <td class="am-text-middle"><h2 style="margin: 0;">-{{ statement['total'] }}</h2></td>
+                                </tr>
+                            {% endif %}
+
+                            {% if statement['account_type'] == 'settle' %}
+                                <tr id="statement-tr" class="am-primary">
+                                    <td class="am-text-middle">
+                                        <p style="color:#485a6a; line-height: 15px; margin: 0;">{{ statement['date_time'][5:10] }}<br/>
+                                        <small style="color:#a7bdcd;">{{ statement['date_time'][0:4] }}</small></p>
+                                    </td>
+                                    <td class="am-text-middle">
+                                        <h2 class="am-text-left" style="color:#485a6a; margin: 0;">{{ statement['product_id'] }}</h2>
+                                    </td>
+                                    <td class="am-text-middle"><h2 style="margin: 0;">-{{ statement['total'] }}</h2></td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div data-am-widget="gotop" class="am-gotop am-gotop-fixed" style="right: 0;">
+        <a href="#top" title="回到顶部">
+            <span class="am-gotop-title">回到顶部</span>
+            <i class="am-gotop-icon am-icon-chevron-up"></i>
+        </a>
+    </div>
+</body>
+{% endblock %}
